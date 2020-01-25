@@ -1,10 +1,19 @@
-from .models import Book
+from .models import Book, UserFeedBack
 from django.contrib import admin
 
 
-class AdminBook(admin.ModelAdmin):
+class AdminUserFeedBack(admin.StackedInline):
+    model = UserFeedBack
 
-    list_display = ['title', 'author', 'genre', 'book_cover']
+
+class AdminBook(admin.ModelAdmin):
+    inlines = [AdminUserFeedBack]
+    list_display = [
+        'title',
+        'author',
+        'genre',
+        'book_cover'
+    ]
 
 
 admin.site.register(Book, AdminBook)
